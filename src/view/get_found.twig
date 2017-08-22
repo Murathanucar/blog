@@ -1,0 +1,9 @@
+{% for article in articles %}
+    <tr>
+        <td>{{ article.id }}</td>
+        <td>{{ article.description }}</td>
+        <td>{{ article.content|slice(0, 40) }}</td>
+        <td><a href="/updateArticle/{{ article.id}}">Düzenle</a></td>
+        <td><a href="Javascript:void(0)" onclick="deleteArticle('{{ article.id }}')">Sil</a></td>
+    </tr>
+{% endfor %}
