@@ -1,0 +1,22 @@
+{% include 'header.twig' %}
+<body>
+
+<div class="container">
+    <div class="wrapper">
+        <form action="/login_action" method="POST" name="Login_Form" class="form-signin">
+            <h3 class="form-signin-heading">Welcome..! Please Sign In</h3>
+            <hr class="colorgraph">
+            <br>
+
+            <input type="text" class="form-control" name="name" id="name" placeholder="Username" required=""
+                   autofocus="" />
+            <input type="password" class="form-control" style="margin-top:2%" name="password" id="password" placeholder="Password"
+                   required=""/>
+
+            <button class="btn btn-light btn-primary" name="Submit" value="Login" type="Submit" style="margin-top:2%">Login</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

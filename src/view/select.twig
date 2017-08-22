@@ -1,0 +1,126 @@
+{% include 'admin.twig' %}
+
+<body>
+<div class="container">
+    <button type="button" class="btn btn-dark" onclick="window.location='/admin'">ANA MENÜ</button>
+    <h2>ARTICLE LIST</h2>
+    <div id="search-items" value="search" style="margin-bottom: 15px">
+
+        <form action="" method="post">
+            <input class="form-control" placeholder="Search for description .." name="mySearch" id="mySearch" type="search" style="width: 40%">
+        </form>
+
+        <div id="category-items" style="float: right;">
+            <form action="" method="post">
+                <select class="dropdown" name="category" id="category">
+                    {% for category in categories %}
+                        <option class="dropdown-item" value="{{ category.id }}">{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+            </form>
+        </div>
+    </div>
+    <br>
+    <div id="result_message" style="float: left; position: absolute; margin-top: 5px; display: none"></div>
+    <div style="margin-top: 30px;">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>description</th>
+                <th>content(1-40 row)</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+            </tr>
+            </thead>
+            <tbody id="article_list">
+            {% for article in articles %}
+                <tr id="article_{{ article.id }}">
+                    <td>{{ article.id }}</td>
+                    <td>{{ article.description }}</td>
+                    <td>{{ article.content|slice(0, 40) }}</td>
+                    <td><a href="/updateArticle/{{ article.id }}">Düzenle</a></td>
+                    <td><a href="Javascript:void(0)" onclick="deleteArticle('{{ article.id }}')">Sil</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        jQuery('#mySearch').keyup(function (e) {
+            var description = jQuery(this).val();
+            foundDescriptionRequest(description);
+        });
+        jQuery("#category").change(function (element) {
+            var categoryId = jQuery(this).val();
+            sendCategoryRequest(categoryId);
+        });
+    });
+
+
+    function deleteArticle(articleId) {
+
+        if (confirm(articleId + " nolu makale silinecek,emin misiniz?") == true) {
+            jQuery.ajax({
+                method: "POST",
+                url: "/deleteArticle/" + articleId,
+                dataType: "json",
+                success: function (responseData) {
+
+                    if (responseData.success == true) {
+                        jQuery("#result_message").html("<span class='bg-info'>" + responseData.message + "<span>");
+                        jQuery("#result_message").show();
+                        setTimeout(function () {
+                            jQuery("#result_message").hide("slow");
+                        }, 3000);
+                        jQuery("#article_" + articleId).hide("slow");
+                    } else {
+                        jQuery("#result_message").html("<span class='bg-danger'>" + responseData.message + "<span>");
+                        jQuery("#result_message").show();
+                        setTimeout(function () {
+                            jQuery("#result_message").hide("slow");
+                        }, 3000);
+                    }
+
+                }
+            })
+        }
+    }
+
+    function sendCategoryRequest(categoryId) {
+        jQuery.ajax({
+            method: "GET",
+            url: "/get_article_category",
+            data: {category_id: categoryId},
+            success: function (responseData) {
+                jQuery("#article_list").html(responseData);
+            }
+        });
+    }
+
+    function foundDescriptionRequest(description) {
+        jQuery.ajax({
+            method: "POST",
+            url: "/get_found_search",
+            data: {description: description},
+            success: function (responseData) {
+                jQuery("#article_list").html(responseData);
+
+            }
+        })
+    }
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
