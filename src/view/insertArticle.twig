@@ -1,0 +1,28 @@
+{% include 'admin.twig' %}
+
+<h1>{{ block('body') }}</h1>
+
+<form action="" method="POST" >
+    <div class="form-group" style="margin-left: 30%">
+        <label  for="exampleFormControlInput1">BAŞLIK</label>
+        <textarea style="width: 50%" class="form-control" name="description" id="description" rows="1"></textarea>
+    </div>
+    <div class="form-group" style="margin-left: 30%">
+        <label for="exampleFormControlInput1">İÇERİK</label>
+        <textarea style="width: 50%" class="form-control" name="content" id="content" rows="10"></textarea>
+    </div>
+    <div class="form-group" style="margin-left: 30%">
+        <label for="exampleFormControlSelect1">KATEGORİ</label>
+        <select style="width: 50%" class="form-control" name="category" id="category">
+            {% for category in categories %}
+                <option value="{{ category.id }}">{{ category.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div style="margin-top: 5%;margin-left: 45%">
+    <button type="submit" class="btn btn-primary">EKLE</button>
+    </div>
+</form>
+
+</body>
+</html>

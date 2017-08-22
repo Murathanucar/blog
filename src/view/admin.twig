@@ -1,0 +1,34 @@
+{% include 'header.twig' %}
+
+<body>
+
+<nav class="navbar navbar-inverse">
+
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Makale <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/select">Listele</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/insert">Ekle</a></li>
+                        <li role="separator" class="divider"></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="navbar-header" style="margin-left: 30%;" >
+                <a class="navbar-brand" >BLOG YÖNETİM PANELİ</a>
+
+            </div>
+            <tr class="button">
+
+                <button type="button" class="btn btn-default" style="float: right; margin-top: 1%" onclick="window.location='/login'">Çıkış yap <span class="glyphicon glyphicon-log-out"></span></button>
+            </tr>
+        </div>
+    </div>
+</nav>
+
+</body>
+</html>
